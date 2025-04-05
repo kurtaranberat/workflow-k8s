@@ -1,8 +1,10 @@
 name: CI/CD Pipeline
+
 on:
   push:
     branches:
       - main
+
 jobs:
   ci-build-and-push:
     name: CI - Build and Push Docker Images
@@ -46,10 +48,18 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
-          kubectl --kubeconfig=kubeconfig.yaml get nodes
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/mongo-deployment.yaml
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/mongo-service.yaml
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/backend-deployment.yaml
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/backend-service.yaml
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/frontend-deployment.yaml
-          kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/frontend-service.yaml
+
+          # Test bağlantı
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true get nodes
+
+          # MongoDB Deployment & Service
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/mongo-deployment.yaml
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/mongo-service.yaml
+
+          # Backend Deployment & Service
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/backend-deployment.yaml
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/backend-service.yaml
+
+          # Frontend Deployment & Service
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/frontend-deployment.yaml
+          kubectl --kubeconfig=kubeconfig.yaml --insecure-skip-tls-verify=true apply -f MERN-Stack-Todo-List-App/k8s/frontend-service.yaml
