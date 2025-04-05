@@ -46,6 +46,7 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          kubectl --kubeconfig=kubeconfig.yaml get nodes
           kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/mongo-deployment.yaml
           kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/mongo-service.yaml
           kubectl --kubeconfig=kubeconfig.yaml apply -f MERN-Stack-Todo-List-App/k8s/backend-deployment.yaml
