@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: beratkurtaran/mern-todo-frontend:latest
+        image: beratkurtaran/mern-todo-client:latest
         ports:
         - containerPort: 3000
         env:
