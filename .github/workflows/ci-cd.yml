@@ -28,9 +28,9 @@ jobs:
 
       - name: Build and Push Frontend Image
         run: |
-          cd MERN-Stack-Todo-List-App/frontend
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-todo-frontend:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-todo-frontend:latest
+          cd MERN-Stack-Todo-List-App/client
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/mern-todo-client:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/mern-todo-client:latest
 
   cd-deploy:
     name: CD - Deploy to Kubernetes
